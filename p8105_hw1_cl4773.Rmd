@@ -5,26 +5,40 @@ date: "2025-09-17"
 output: github_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+#### Load the moderndive library, and use the following code to load the early_january_weather dataset:
+```{r}
+library(moderndive)
+data("early_january_weather")
 ```
 
-## R Markdown
+#### The early_january_weather dataset has `r nrow(early_january_weather)` rows and `r ncol(early_january_weather)` columns. The variables include: time_hour: The hour of the day.
+temp: Temperature in degrees Celsius. humid: Humidity percentage. Other variables include wind speed, pressure, etc. 
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+The mean temperature is `r round(mean(early_january_weather$temp, na.rm = TRUE))` degrees Celsius.
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+#### Make a scatterplot of temp (y) vs time_hour (x); color points using the humid variable (adding color = ... inside of aes in your ggplot code should help). Describe patterns that are apparent in this plot.
 
-```{r cars}
-summary(cars)
+```{r}
+library(ggplot2)
+
+p <- ggplot(early_january_weather, aes(x = time_hour, y = temp, color = humid)) +
+  geom_point() +
+  labs(title = "Temperature vs Time of Day Colored by Humidity",
+       x = "Time (Hour)",
+       y = "Temperature (°C)",
+       color = "Humidity (%)") +
+  theme_minimal()
+
+print(p)
 ```
 
-## Including Plots
+#### Export your scatterplot to your project directory using ggsave.
+```{r}
+ggsave(filename = "scatterplot_temp_vs_time.png", plot = p, width = 7, height = 5)
 
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+### 2) Create a data frame comprised of: a random sample of size 10 from a standard Normal distribution a logical vector indicating whether elements of the sample are greater than 0 a character vector of length 10 a factor vector of length 10, with 3 different factor “levels” Try to take the mean of each variable in your dataframe. What works and what doesn’t? Hint: for now, to take the mean of a variable in a dataframe, you need to pull the variable out of the dataframe. Try loading the tidyverse and using the pull function. In some cases, you can explicitly convert variables from one type to another. Write a code chunk that applies the as.numeric function to the logical, character, and factor variables (please show this chunk but not the output). What happens, and why? Does this help explain what happens when you try to take the mean?
+
+
