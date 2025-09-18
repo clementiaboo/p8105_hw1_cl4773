@@ -20,7 +20,7 @@ The mean temperature is `r round(mean(early_january_weather$temp, na.rm = TRUE))
 ```{r}
 library(ggplot2)
 
-p = ggplot(early_january_weather, aes(x = time_hour, y = temp, color = humid)) +
+graph = ggplot(early_january_weather, aes(x = time_hour, y = temp, color = humid)) +
   geom_point() +
   labs(title = "Temperature vs Time of Day Colored by Humidity",
        x = "Time (Hours)",
@@ -28,12 +28,12 @@ p = ggplot(early_january_weather, aes(x = time_hour, y = temp, color = humid)) +
        color = "Humidity (%)") +
   theme_minimal()
 
-print(p)
+print(graph)
 ```
 
 #### Export your scatterplot to your project directory using ggsave.
 ```{r}
-ggsave(filename = "scatterplot_temp_vs_time.png", plot = p, width = 7, height = 5)
+ggsave(filename = "scatterplot.png", plot = graph, width = 7, height = 5)
 
 ```
 
